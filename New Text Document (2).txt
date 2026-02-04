@@ -1,0 +1,10 @@
+<group name="host">
+  <rule id="100001" level="10" frequency="5" timeframe="60">
+    <if_matched_sid>60122</if_matched_sid>
+    <same_source_ip />
+    <description> ALERT: Intrusion detected / multiple attempts </description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+</group>
