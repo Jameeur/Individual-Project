@@ -65,6 +65,9 @@ def main():
     if count >= 3 and unique_users == 1:
         log_attack(src_ip, user, count, "Brute Force")
 
+    elif unique_users >= 3:
+        log_attack(src_ip, "Multiple Users detected", count)
+
     save_db(db)
 
 if __name__ == "__main__":
