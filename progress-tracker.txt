@@ -1,2 +1,7 @@
+30/12/2024 - I have started to research what kind of scope my project will have. I have decided that based on my PDD, my project will not contain much code and alone will not satisfy a significant build on the project. I have started to look for ideas on how to expand my project to include more security and alert features for the end user.
+
 10-02-2026 - I have started implementing a botnet to the VM, as just finished creating a custom ruleset when using Brute Force while logging in.
-11-02-2026 - I have 
+
+11-02-2026 - I have experimented with some cases to expand my project, such as redirecting the host to a custom html page if the host fails the password many times. However I have cancelled these goals as they are far too complex to setup. I will start to implement and expand something closer to the project.
+
+14-02-26 - After multiple trial and error, I have expanded my project to include sending an alert to both the user and recipient to alert of any unknown user credentials. This code will be updated in github today. Alert is reflected in the Wazuh dashboard and rule 5710 is associated with it.
