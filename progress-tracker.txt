@@ -10,3 +10,4 @@
 
 15/02 - I have added incident_mail in github, which I have been working on for the last couple of days. This file sends an email to a given recipient if there seems to be an invalid SSH account trying to log in to Virtualbox. Uses a specific portID and also automatically seen by Wazuh. I would suggest expanding my project in one more way before moving on to the design part of the project. I have started coding on simulating an attack on the machine, and see how the SIEM and the VM would react, so I will be monitoring logs, the Wazuh dashboard and the behaviour of the VM
 
+16/02 - I am working on another python file called threat_gen.py. As defined on my PDD, this will simulate an SSH attack on the Windows VM, where I will be running the command in the UBuntu VM, and seeing how the logs react. I will be adding this imcomplete code today, with the hope of finishing this .py file in around a day or two
