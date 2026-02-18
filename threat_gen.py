@@ -53,7 +53,7 @@ def launch_sim():
         if choice == '1':
             ssh_auth(15)
         elif choice == '2':
-        privilege_escalation()
+            privilege_escalation()
         elif choice == '3':
             ssh_auth(10)
             privilege_escalation()
