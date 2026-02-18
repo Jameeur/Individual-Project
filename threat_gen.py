@@ -51,12 +51,12 @@ def launch_sim():
         choice = input("\n[?] Enter choice (1-4): ")
         
         if choice == '1':
-            trigger_ssh_auth(15)
+            ssh_auth(15)
         elif choice == '2':
-            trigger_privilege_escalation()
+        privilege_escalation()
         elif choice == '3':
-            trigger_ssh_auth(10)
-            trigger_privilege_escalation()
+            ssh_auth(10)
+            privilege_escalation()
         elif choice == '4':
             print("Quitting")
             sys.exit(0)
