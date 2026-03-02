@@ -20,3 +20,6 @@
 
 24/02 - I have finished my initial build and will upload my last .py file today. I have started building a custom dashboard as requested on my PDD which will contain live threat data and analytics, which will of course update in real time. I will also upload my design prototypes today
 
+02/03 - I have finally finished my base project, and will continue to work on the report. I may implement small features until the first code submission. I had a problem uploading the design prototypes however I will update them today. My PDD is currently fully satisfied and beyond
+
+
