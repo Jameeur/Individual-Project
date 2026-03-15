@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Live SIEM Dashboard</title>
+    <style>
+        body { 
+            background-color: #0f131a;
+            color: #d1d7e0; 
+            font-family: Consolas, 'Courier New', monospace; 
+            padding: 24px 30px; 
+            margin: 0;
+        }
+        
+        .header-container {
+            border-bottom: 2px solid #2d343f; 
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h2 { 
+            margin: 0;
+            color: #e6edf3;
+            font-size: 1.4em;
+        }
+        
+        .nav-btn {
+            background-color: #238636;
+            color: #ffffff;
+            padding: 8px 18px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; 
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            transition: background-color 0.2s; 
+        }
+        
+        .nav-btn:hover { background-color: #2ea043; }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
+            background-color: #1a1f26; 
+            border-radius: 6px;
+            overflow: hidden; 
+        }
+        
+        th, td { 
+            border-bottom: 1px solid #2d343f; 
+            padding: 14px 16px; 
+            text-align: left; 
+        }
+        
+        
+        th { 
+            background-color: #21262d; 
+            color: #4da6ff; 
+            font-weight: normal;
+            font-size: 0.95em;
+        }
+        
+        
+        tr:last-child td { border-bottom: none; }
+        
+        
+        
+        .alert-high { color: #ff7b72; font-weight: 600; background-color: rgba(255, 123, 114, 0.05); }
+        .alert-med { color: #d2a8ff; }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <h2>Live Security Alerts | Project Author: Jameeur Rahman</h2>
+        <a href="/analytics" class="nav-btn">View Live Analytics Graph &rarr;</a>
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Level</th>
+                <th>Rule Description</th>
+                <th>Agent Name</th>
+                <th>Source IP</th>
+            </tr>
+        </thead>
+        <tbody id="alert-box">
+            </tbody>
+    </table>
+
+    <script>
+        function fetchAlerts() {
+            fetch('/live_data')
+            .then(res => res.json())
+            .then(data => {
+                let out = '';
+                
+                for(let i=0; i<data.length; i++) {
+                    let a = data[i];
+                    
+                    let t = a.timestamp ? a.timestamp.substring(0, 19).replace('T', ' ') : 'N/A';
+                    let lvl = a.rule ? a.rule.level : '0';
+                    let desc = a.rule ? a.rule.description : 'Unknown';
+                    
+                    let agent = a.agent && a.agent.name ? a.agent.name : 'Unknown';
+
+                    let ip = '-';
+                    // compares both wazuh & windows logs
+                    if (a.data && a.data.srcip) {
+                        ip = a.data.srcip;
+                    } else if (a.data && a.data.win && a.data.win.eventdata && a.data.win.eventdata.ipAddress) {
+                        ip = a.data.win.eventdata.ipAddress;
+                    }
+                    
+                    let styleClass = "";
+                    if (lvl >= 7) styleClass = "class='alert-high'";
+                    else if (lvl >= 4) styleClass = "class='alert-med'";
+
+                    out += `<tr ${styleClass}>
+                        <td>${t}</td>
+                        <td>${lvl}</td>
+                        <td>${desc}</td>
+                        <td>${agent}</td>
+                        <td>${ip}</td>
+                    </tr>`;
+                }
+                document.getElementById('alert-box').innerHTML = out;
+            })
+            .catch(err => {
+                
+            });
+        }
+        
+        fetchAlerts();
+        setInterval(fetchAlerts, 3000); 
+    </script>
+</body>
+</html>
