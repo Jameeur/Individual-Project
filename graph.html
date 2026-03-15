@@ -5,28 +5,37 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { 
-            background-color: #0d1117; 
-            color: #c9d1d9; 
-            font-family: 'Courier New', Courier, monospace; 
-            padding: 20px;
+            background-color: #0f131a; /* slightly deeper, custom navy-black */
+            color: #d1d7e0; /* softer off-white */
+            font-family: Consolas, 'Courier New', monospace; /* Windows-first dev font stack */
+            padding: 24px 30px; /* Non-standard padding */
         }
-        .container { max-width: 1000px; margin: 0 auto; }
-        header { border-bottom: 2px solid #30363d; padding-bottom: 15px; margin-bottom: 30px; }
-        .back-link { color: #58a6ff; text-decoration: none; margin-right: 20px; }
+        .container { max-width: 1040px; margin: 0 auto; }
+        
+        header { 
+            border-bottom: 2px solid #2d343f; 
+            padding-bottom: 18px; 
+            margin-bottom: 32px; 
+        }
+        
+        .back-link { color: #4da6ff; text-decoration: none; margin-right: 25px; }
+        .back-link:hover { text-decoration: underline; }
         
         select {
-            background-color: #161b22;
-            color: #c9d1d9;
-            border: 1px solid #30363d;
-            padding: 5px;
-            border-radius: 4px;
+            background-color: #1a1f26;
+            color: #d1d7e0;
+            border: 1px solid #2d343f;
+            padding: 6px 10px;
+            border-radius: 5px; /* odd border radius */
+            font-family: inherit;
         }
 
         .chart-box {
-            background-color: #161b22;
-            padding: 20px;
-            border: 1px solid #30363d;
-            border-radius: 6px;
+            background-color: #1a1f26;
+            padding: 25px 20px;
+            border: 1px solid #2d343f;
+            border-radius: 7px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); /* added a subtle shadow for polish */
         }
     </style>
 </head>
@@ -34,7 +43,7 @@
     <div class="container">
         <header>
             <a href="/" class="back-link"><- Back to Dashboard</a>
-            <span style="font-size: 1.2em; font-weight: bold;">Live Alert Activity (Events per Minute)</span>
+            <span style="font-size: 1.25em; font-weight: bold;">Live Alert Activity (Events per Minute)</span>
             <div style="float: right;">
                 <label for="timeRange">Lookback Range: </label>
                 <select id="timeRange" onchange="refreshChart()">
@@ -75,9 +84,10 @@
                         datasets: [{
                             label: 'Alert Count',
                             data: chartData.values,
-                            backgroundColor: 'rgba(88, 166, 255, 0.6)',
-                            borderColor: 'rgba(88, 166, 255, 1)',
-                            borderWidth: 1
+                            backgroundColor: 'rgba(77, 166, 255, 0.55)', /* Custom cyan-blue */
+                            borderColor: 'rgba(77, 166, 255, 1)',
+                            borderWidth: 1,
+                            borderRadius: 2 /* rounds the top of the bar graph slightly */
                         }]
                     },
                     options: {
@@ -85,16 +95,16 @@
                         scales: {
                             y: {
                                 beginAtZero: true,
-                                grid: { color: '#30363d' },
-                                ticks: { color: '#c9d1d9' }
+                                grid: { color: '#2d343f' },
+                                ticks: { color: '#8b949e' }
                             },
                             x: {
                                 grid: { display: false },
-                                ticks: { color: '#c9d1d9', maxTicksLimit: 15 }
+                                ticks: { color: '#8b949e', maxTicksLimit: 12 } /* changed from 15 to 12 */
                             }
                         },
                         plugins: {
-                            legend: { labels: { color: '#c9d1d9' } }
+                            legend: { labels: { color: '#d1d7e0' } }
                         },
                         animation: false
                     }
