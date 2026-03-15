@@ -22,4 +22,6 @@
 
 02/03 - I have finally finished my base project, and will continue to work on the report. I may implement small features until the first code submission. I had a problem uploading the design prototypes however I will update them today. My PDD is currently fully satisfied and beyond
 
+15/03 - I have uploaded some python and HTML files which are part of the design & mailing system. I have also been building my report, particularly around the build process. I will need to collate my plan to run the code for the project package submission
+
 
