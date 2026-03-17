@@ -28,4 +28,6 @@
 
 15/03 - I have uploaded some python and HTML files which are part of the design & mailing system. I have also been building my report, particularly around the build process. I will need to collate my plan to run the code for the project package submission
 
+17/03 - Today I have implemented my final feature before I submit the project package. This feature automatically checks the downloads folder for any suspicious files. I have tested a standard EICAR file which is universal and is automatically removed. The ossec.conf files for both the Windows client and the Ubuntu VM nneeds setting up before using this feature, so it will not be suitable in terms of scalability.
+
 
