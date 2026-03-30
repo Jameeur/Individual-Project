@@ -30,4 +30,8 @@
 
 17/03 - Today I have implemented my final feature before I submit the project package. This feature automatically checks the downloads folder for any suspicious files. I have tested a standard EICAR file which is universal and is automatically removed. The ossec.conf files for both the Windows client and the Ubuntu VM nneeds setting up before using this feature, so it will not be suitable in terms of scalability.
 
+25/03 - Working on the report, and also the Project Output submission file. I am currently running the instructions on how to run my code, as my project requires a LOT of setting up before putting in the code. 
+
+01/04 - I have finished the project output submission, and I will start making some little changes towards existing files already uploaded into gihub. These changes were made based on further testing and validation of the code, during the project output submission. Now I have started work on the Final Report, where I have finished the literature review and moving on more into Chapter 3
+
 
