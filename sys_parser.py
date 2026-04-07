@@ -60,4 +60,4 @@ def fetch_aggregated_metrics(depth=2000):
         labels.append(t.split(' ')[1])
         values.append(alert_counts[t])
         
-    return {"Labels": labels, "Values": values}
+    return {"labels": labels, "values": values}
