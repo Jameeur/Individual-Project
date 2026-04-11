@@ -65,7 +65,7 @@ def main():
             save_db(db)
         return
 
-    # Process failed logins
+    # Processes any failed logins
     if src_ip not in db:
         db[src_ip] = {"count": 0, "users": []}
         
