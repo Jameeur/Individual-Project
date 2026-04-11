@@ -1,12 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import sys
 import json
-import time
-from datetime import datetime
 import os
+from datetime import datetime
 
 Records = "/tmp/wazuh_attacker_memory.json"
-Logs = "/tmp/wazuh_project_output.txt"
+Logs = "/var/ossec/logs/active-responses.log"
 
 def load_db():
     try:
@@ -19,17 +18,15 @@ def save_db(data):
     try:
         with open(Records, "w") as f:
             json.dump(data, f)
-        os.chmod(Records, 0o666)
     except:
         pass
 
 def log_attack(ip, user, count, attack_type):
     now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    msg = f"[{now}] DEDUCTION: {attack_type} detected from {ip} (User: {user}, Failures: {count})\n"
+    msg = f"[{now}] Deduction: {attack_type} detected from {ip} (User: {user}, Failures: {count})\n"
     try:
         with open(Logs, "a") as f:
             f.write(msg)
-        os.chmod(Logs, 0o666)
     except:
         pass
 
@@ -40,17 +37,35 @@ def main():
             return
         alert = json.loads(line)
         
-        win_data = alert.get("data", {}).get("win", {}).get("eventdata", {})
-        src_ip = win_data.get("ipAddress", "unknown")
-        user = win_data.get("targetUserName", "unknown")
+        alert_data = alert.get("parameters", {}).get("alert", {})
+        rule_id = str(alert_data.get("rule", {}).get("id", "unknown"))
+        src_ip = alert_data.get("data", {}).get("srcip")
+        user = alert_data.get("data", {}).get("dstuser")
         
+        if not src_ip:
+            win_data = alert_data.get("data", {}).get("win", {}).get("eventdata", {})
+            src_ip = win_data.get("ipAddress", "unknown")
+            user = win_data.get("targetUserName", "unknown")
+            
         if src_ip == "unknown" or src_ip == "-" or src_ip is None:
             src_ip = "local_console"
 
     except:
         return
+
+    # Loads database
     db = load_db()
     
+    # Checks for successful login
+    success_rules = ["40112", "5715", "100099"]
+    if rule_id in success_rules:
+        if src_ip in db:
+            db[src_ip]["count"] = 0
+            db[src_ip]["users"] = []
+            save_db(db)
+        return
+
+    # Process failed logins
     if src_ip not in db:
         db[src_ip] = {"count": 0, "users": []}
         
